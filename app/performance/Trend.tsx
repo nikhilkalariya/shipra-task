@@ -40,7 +40,7 @@ export default function Trend() {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <Card className="p-2 ">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Trends</h2>
         <div className="flex gap-2">
@@ -82,40 +82,6 @@ export default function Trend() {
           ))}
         </div>
       ) : (
-        // <div className="overflow-x-auto">
-        //   <table className="min-w-full text-sm border">
-        //     <thead className="bg-gray-100">
-        //       <tr>
-        //         <th className="px-4 py-2 text-left">Date</th>
-        //         <th className="px-4 py-2 text-left">Time Ago</th>
-        //         <th className="px-4 py-2 text-left">Current Price</th>
-        //         <th className="px-4 py-2 text-left">Past Price</th>
-        //         <th className="px-4 py-2 text-left">Change</th>
-        //         <th className="px-4 py-2 text-left">PE Ratio</th>
-        //         <th className="px-4 py-2 text-left">PE Change %</th>
-        //       </tr>
-        //     </thead>
-        //     <tbody>
-        //       {trends.map((entry, idx) => (
-        //         <tr key={idx} className="border-t">
-        //           <td className="px-4 py-2">{entry.date}</td>
-        //           <td className="px-4 py-2">{entry.day}</td>
-        //           <td className="px-4 py-2">${entry.current_price.toFixed(2)}</td>
-        //           <td className="px-4 py-2">${entry.past_price.toFixed(2)}</td>
-        //           <td className="px-4 py-2">
-        //             {formatChange(entry.change, entry.change_pct)}
-        //           </td>
-        //           <td className="px-4 py-2">{entry.pe !== null ? entry.pe.toFixed(2) : "--"}</td>
-        //           <td className="px-4 py-2">
-        //             {entry.pe_change_pct !== null
-        //               ? `${entry.pe_change_pct.toFixed(2)}%`
-        //               : "--"}
-        //           </td>
-        //         </tr>
-        //       ))}
-        //     </tbody>
-        //   </table>
-        // </div>
           <Table>
             <TableHeader>
               <TableRow>
@@ -148,6 +114,6 @@ export default function Trend() {
           </Table>
 
       )}
-    </div>
+    </Card>
   );
 }
