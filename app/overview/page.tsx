@@ -73,7 +73,6 @@ export interface HighLowEntry {
   week: string;
 }
 export interface DmaEntry {
-  [x: string]: any;
   date: string;
   day: string;
   dma_price: number;
@@ -88,7 +87,7 @@ export default function OverviewSection() {
   const [statistics, setstatics] =useState<HighLowEntry[]>([])
 
   useEffect(() => {
-    fetchFromAPI< OverviewApiResponse>("/overview")
+    fetchFromAPI<{message:string ,result:OverviewResult} >("/overview")
       .then((res) => setData(res.result))
       .catch(console.error);
   }, []);
@@ -110,7 +109,7 @@ export default function OverviewSection() {
 
   return (
     <div className=" flex flex-col gap-4 px-10 pt-5">
-      <OverviewChart prices={data.closingPrices} />
+      <OverviewChart/>
       <OverviewCards data ={data} />
       <HighLowStats statistics ={statistics}/>
       <div className="flex gap-2 w-full">

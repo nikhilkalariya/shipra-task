@@ -1,6 +1,9 @@
 "use client";
 import { DmaEntry } from "./page";
 
+interface InvestmentReturnsProps {
+  dmaData: DmaEntry[];
+}
 
 const timeMap: Record<string, string> = {
   "5": "1 Week",
@@ -12,7 +15,7 @@ const timeMap: Record<string, string> = {
   "300": "5 Years",
 };
 
-export default function InvestmentReturns({dmaData}: {dmaData:DmaEntry}) {
+export default function InvestmentReturns({dmaData}: InvestmentReturnsProps) {
 
   const longTerm = dmaData.filter((d: { day: string; }) => ["100", "200", "300"].includes(d.day));
   const shortTerm = dmaData.filter((d: { day: string; }) => ["5", "10", "20", "50"].includes(d.day));

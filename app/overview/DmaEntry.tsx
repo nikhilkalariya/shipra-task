@@ -1,9 +1,13 @@
 "use client";
 import { Card } from "@/components/ui/card";
 import { DmaEntry } from "./page";
+import { Key } from "react";
+interface DmaTableProps {
+  dmaData: DmaEntry[];
+}
 
 
-export default function DmaTable({dmaData}: {dmaData:DmaEntry}) {
+export default function DmaTable({dmaData}: DmaTableProps) {
 
 
     const renderRow = (
@@ -15,13 +19,13 @@ export default function DmaTable({dmaData}: {dmaData:DmaEntry}) {
     ) => (
         <tr className="text-sm">
             <td className="py-2 font-medium ">{label}</td>
-            {dmaData.map((entry, idx) => {
+            {dmaData.map((entry:DmaEntry, idx: Key) => {
                 const value = entry[key];
                 const num = typeof value === "string" ? parseFloat(value) : value;
                 const formatted = value !== null && !isNaN(Number(num))
                     ? isPercent
-                        ? `${num.toFixed(2)}%`
-                        : `$${num.toFixed(2)}`
+                        ? `${Number(num).toFixed(2)}%`
+                        : `$${Number(num).toFixed(2)}`
                     : "-";
                 const color = colorize && value !== null
                     ? Number(num) > 0
@@ -43,7 +47,7 @@ export default function DmaTable({dmaData}: {dmaData:DmaEntry}) {
                     <thead>
                         <tr className="text-muted-foreground border-b">
                             <th className="py-2 text-left">Days</th>
-                            {dmaData.map((entry, idx) => (
+                            {dmaData.map((entry:DmaEntry, idx:Key) => (
                                 <th key={idx} className="text-center font-medium">
                                     {entry.day}
                                 </th>

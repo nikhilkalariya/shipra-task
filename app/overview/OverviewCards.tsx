@@ -1,8 +1,8 @@
 "use client";
 import { Card } from "@/components/ui/card";
-import type { OverviewApiResponse } from "../component/Overviewnav";
+import { OverviewResult } from "./page";
 
-export default function OverviewCards({ data }: { data: OverviewApiResponse }) {
+export default function OverviewCards({ data }: { data: OverviewResult }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 ">
       {Object.entries(data).filter(([key]) => key !== "closingPrices").map(([section, value]) => (

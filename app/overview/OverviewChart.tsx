@@ -182,7 +182,7 @@ useEffect(() => {
                 active && payload && payload.length ? (
                   <div className="bg-white text-black text-xs p-2 rounded shadow">
                     <div>{payload[0].payload.time}</div>
-                    <div className="font-semibold">${payload[0].value.toFixed(2)}</div>
+                    <div className="font-semibold">${Number(payload[0].value).toFixed(2)}</div>
                   </div>
                 ) : null
               }
