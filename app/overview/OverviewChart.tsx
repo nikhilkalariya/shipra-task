@@ -21,12 +21,14 @@ import {
 } from "@/components/ui/card";
 import { fetchFromAPI } from "../lib/api";
 
+
 interface ClosingPrice {
   time: string;
   value: number;
 }
 
 const ranges = ["5D", "1M", "3M", "6M", "YTD", "1Y", "3Y", "5Y", "10Y", "MAX"];
+const tabs = ["Price", "Drawdown", "P/E", "Worst Phase"];
 
 function filterData(data: ClosingPrice[], range: string): ClosingPrice[] {
   const now = new Date();
@@ -78,6 +80,7 @@ function filterData(data: ClosingPrice[], range: string): ClosingPrice[] {
 export default function OverviewChart() {
   const [allData, setAllData] = useState<ClosingPrice[]>([]);
   const [selectedRange, setSelectedRange] = useState("5D");
+  const [active ,setActive] =useState("")
 useEffect(() => {
    async function fetchData() {
     try {
@@ -102,7 +105,37 @@ useEffect(() => {
 
   return (
     <Card className="text-white  border ">
-      <div className= "mx-6 bg-[#0075ff08] rounded-xl flex justify-between px-10 pb-2 pt-2">
+      <div className="mx-6 flex items-center gap-1 ">
+      {/* Tabs */}
+      <div className="flex gap-2 bg-white p-1 rounded-lg shadow-sm border text-sm">
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActive(tab)}
+            className={`whitespace-nowrap ${
+              tab === active
+                ? "text-blue-600 font-medium  bg-blue-100 p-1 rounded-lg"
+                : "text-gray-500 hover:text-black"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* Stats */}
+      <div className="flex gap-2 p-2 bg-white rounded-lg shadow-sm border items-center text-gray-700 text-sm">
+        <span>
+          <span className="text-gray-500">Total Change:</span>
+          <span>CA$1.22 (4.80%)</span>
+        </span>
+        <span className="border-l border-gray-300 h-4" />
+        <span>
+          <span className="text-gray-500">CAGR:</span> 29.63%
+        </span>
+      </div>
+    </div>
+      <div className= "mx-6 bg-[#0075ff08] rounded-xl flex justify-between px-10 p-2">
         {ranges.map((range) => (
           <button
             key={range}

@@ -76,17 +76,17 @@ export default function Trend() {
         <div className="flex gap-2">
           <Button
             variant="ghost"
-            onClick={() => setViewMode("card")}
-            className={viewMode === "card" ? "bg-blue-100 text-blue-600" : ""}
-          >
-            <ViewGridIcon className="h-5 w-5" />
-          </Button>
-          <Button
-            variant="ghost"
             onClick={() => setViewMode("table")}
             className={viewMode === "table" ? "bg-blue-100 text-blue-600" : ""}
           >
             <ListBulletIcon className="h-5 w-5" />
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={() => setViewMode("card")}
+            className={viewMode === "card" ? "bg-blue-100 text-blue-600" : ""}
+          >
+            <ViewGridIcon className="h-5 w-5" />
           </Button>
         </div>
       </div>

@@ -36,7 +36,7 @@ export default function DmaTable({dmaData}: {dmaData:DmaEntry}) {
     );
 
     return (
-        <Card className="p-4 my-4">
+        <Card className="p-4 ">
             <h4 className="text-lg font-semibold mb-4">Daily Moving Average (DMA)</h4>
             <div className="overflow-x-auto">
                 <table className="min-w-full text-sm">
