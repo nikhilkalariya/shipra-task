@@ -35,11 +35,13 @@ interface PeakData {
 export default function Peak() {
   const [npeakdata, setNPeakData] = useState<PeakData[]>([]);
   const [viewMode, setViewMode] = useState<"card" | "table">("card");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetchFromAPI<{ message: string; result: { peakData: PeakData[] } }>("/peaks").then(
-      (res) => setNPeakData(res.result.peakData)
-    );
+    setLoading(true)
+    fetchFromAPI<{ message: string; result: { peakData: PeakData[] } }>("/peaks")
+      .then((res) => setNPeakData(res.result.peakData))
+      .finally(() => setLoading(false))
   }, []);
 
   const formatDate = (dateStr: string) => {
@@ -67,7 +69,7 @@ export default function Peak() {
   };
 
   return (
-    
+
     <Card className="p-2 ">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Peak</h2>
@@ -88,52 +90,56 @@ export default function Peak() {
           </Button>
         </div>
       </div>
-
-      {viewMode === "card" ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {npeakdata.map((entry, idx) => (
-            <Card key={idx} className="p-4 flex flex-col gap-2 text-sm border rounded-md shadow-sm">
-              <div className="text-base font-medium">{formatDate(entry.Date)}</div>
-              <div className="text-muted-foreground">{entry.timeDiff}</div>
-              <div className="text-lg font-bold">${entry.Close}</div>
-              {formatChange(entry.change, entry.percentageChange)}
-              {formatChange(entry.reverseChange, entry.reversePercentageChange)}
-            </Card>
-          ))}
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500" />
         </div>
-      ) : (
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>PEAK NO</TableHead>
-                <TableHead>DATE</TableHead>
-                <TableHead>TIMELINE</TableHead>
-                <TableHead>PEAK PRICE</TableHead>
-                <TableHead>DOWNWARD CHANGE</TableHead>
-                <TableHead>UPSIDE CHANGE</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {npeakdata.map((entry, idx) => (
-                <TableRow key={idx}>
-                  <TableCell>{entry.peak}</TableCell>
-                  <TableCell>{formatDate(entry.Date)}</TableCell>
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span>{entry.timeDiff}</span>
-                      <span>{entry.time_diff_str}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell>${entry.Close}</TableCell>
-                  <TableCell>{formatChange(entry.change, entry.percentageChange)}</TableCell>
-                  <TableCell>{formatChange(entry.reverseChange, entry.reversePercentageChange)}</TableCell>
+      ) :
+        viewMode === "card" ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {npeakdata.map((entry, idx) => (
+              <Card key={idx} className="p-4 flex flex-col gap-2 text-sm border rounded-md shadow-sm">
+                <div className="text-base font-medium">{formatDate(entry.Date)}</div>
+                <div className="text-muted-foreground">{entry.timeDiff}</div>
+                <div className="text-lg font-bold">${entry.Close}</div>
+                {formatChange(entry.change, entry.percentageChange)}
+                {formatChange(entry.reverseChange, entry.reversePercentageChange)}
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>PEAK NO</TableHead>
+                  <TableHead>DATE</TableHead>
+                  <TableHead>TIMELINE</TableHead>
+                  <TableHead>PEAK PRICE</TableHead>
+                  <TableHead>DOWNWARD CHANGE</TableHead>
+                  <TableHead>UPSIDE CHANGE</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      )}
+              </TableHeader>
+              <TableBody>
+                {npeakdata.map((entry, idx) => (
+                  <TableRow key={idx}>
+                    <TableCell>{entry.peak}</TableCell>
+                    <TableCell>{formatDate(entry.Date)}</TableCell>
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span>{entry.timeDiff}</span>
+                        <span>{entry.time_diff_str}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell>${entry.Close}</TableCell>
+                    <TableCell>{formatChange(entry.change, entry.percentageChange)}</TableCell>
+                    <TableCell>{formatChange(entry.reverseChange, entry.reversePercentageChange)}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        )}
     </Card>
   );
 }

@@ -33,11 +33,12 @@ interface TrendEntry {
 export default function Trend() {
   const [trends, setTrends] = useState<TrendEntry[]>([]);
   const [viewMode, setViewMode] = useState<"card" | "table">("card");
-
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    fetchFromAPI<{ message: string; result: TrendEntry[] }>("/performance").then(
-      (res) => setTrends(res.result)
-    );
+    setLoading(true)
+    fetchFromAPI<{ message: string; result: TrendEntry[] }>("/performance")
+    .then((res) => setTrends(res.result))
+    .finally(() => setLoading(false))    
   }, []);
 
   const formatChange = (value: number, pct: number) => {
@@ -52,11 +53,11 @@ export default function Trend() {
   };
 
   const renderCards = (filteredData: TrendEntry[], color: "green" | "red") => (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-2 content-baseline">
       {filteredData.map((entry, idx) => (
         <Card
           key={idx}
-          className={`p-4 flex flex-col gap-2 text-sm border rounded-md shadow-sm ${
+          className={`p-4 flex  h-[250px] sm:h-[200px] md:h-[150px] flex-col gap-2 text-sm border rounded-md shadow-sm ${
             color === "green" ? "bg-green-50" : "bg-red-50"
           }`}
         >
@@ -91,7 +92,11 @@ export default function Trend() {
         </div>
       </div>
 
-      {viewMode === "card" ? (
+    {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500" />
+        </div>
+      ) :     viewMode === "card" ? (
         <div className="grid grid-cols-2 gap-2">
           {renderCards(trends.filter((t) => t.change_pct >= 0), "green")}
           {renderCards(trends.filter((t) => t.change_pct < 0), "red")}
