@@ -25,9 +25,9 @@ export default function Header() {
           <Link
             key={tab.href}
             href={tab.href}
-            className={`text-sm font-medium pb-2 border-b-2${ pathname === tab.href
-                ? 'text-green-600 hover:border-green-600'
-                : 'text-gray-600 border-transparent hover:border-blue-500'
+            className={`text-sm font-medium pb-2 ${ pathname === tab.href
+                ? 'border-b-2 text-blue-500  border-blue-500'
+                : ''
             }`}
           >
             {tab.name}

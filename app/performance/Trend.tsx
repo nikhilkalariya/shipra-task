@@ -3,9 +3,21 @@
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ListBulletIcon, ViewGridIcon, ArrowDownIcon, ArrowUpIcon } from "@radix-ui/react-icons";
+import {
+  ListBulletIcon,
+  ViewGridIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+} from "@radix-ui/react-icons";
 import { fetchFromAPI } from "../lib/api";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface TrendEntry {
   change: number;
@@ -39,8 +51,26 @@ export default function Trend() {
     );
   };
 
+  const renderCards = (filteredData: TrendEntry[], color: "green" | "red") => (
+    <div className="grid grid-cols-2 gap-2">
+      {filteredData.map((entry, idx) => (
+        <Card
+          key={idx}
+          className={`p-4 flex flex-col gap-2 text-sm border rounded-md shadow-sm ${
+            color === "green" ? "bg-green-50" : "bg-red-50"
+          }`}
+        >
+          <div className="text-base font-medium">{entry.date}</div>
+          <div className="text-muted-foreground">{entry.day}</div>
+          <div className="text-lg font-bold">${entry.current_price.toFixed(2)}</div>
+          {formatChange(entry.change, entry.change_pct)}
+        </Card>
+      ))}
+    </div>
+  );
+
   return (
-    <Card className="p-2 ">
+    <Card className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Trends</h2>
         <div className="flex gap-2">
@@ -62,57 +92,41 @@ export default function Trend() {
       </div>
 
       {viewMode === "card" ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {trends.map((entry, idx) => (
-            <Card
-              key={idx}
-              className="p-4 flex flex-col gap-2 text-sm border rounded-md shadow-sm"
-            >
-              <div className="text-base font-medium">
-                {entry.date}
-              </div>
-              <div className="text-muted-foreground">
-                {entry.day}
-              </div>
-              <div className="text-lg font-bold">
-                ${entry.current_price.toFixed(2)}
-              </div>
-              {formatChange(entry.change, entry.change_pct)}
-            </Card>
-          ))}
+        <div className="grid grid-cols-2 gap-2">
+          {renderCards(trends.filter((t) => t.change_pct >= 0), "green")}
+          {renderCards(trends.filter((t) => t.change_pct < 0), "red")}
         </div>
       ) : (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Time Ago</TableHead>
-                <TableHead>Current Price</TableHead>
-                <TableHead>Past Price</TableHead>
-                <TableHead>Change</TableHead>
-                <TableHead>PE Ratio</TableHead>
-                <TableHead>PE Change %</TableHead>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Date</TableHead>
+              <TableHead>Time Ago</TableHead>
+              <TableHead>Current Price</TableHead>
+              <TableHead>Past Price</TableHead>
+              <TableHead>Change</TableHead>
+              <TableHead>PE Ratio</TableHead>
+              <TableHead>PE Change %</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {trends.map((entry, idx) => (
+              <TableRow key={idx}>
+                <TableCell>{entry.date}</TableCell>
+                <TableCell>{entry.day}</TableCell>
+                <TableCell>${entry.current_price.toFixed(2)}</TableCell>
+                <TableCell>${entry.past_price.toFixed(2)}</TableCell>
+                <TableCell>{formatChange(entry.change, entry.change_pct)}</TableCell>
+                <TableCell>{entry.pe !== null ? entry.pe.toFixed(2) : "--"}</TableCell>
+                <TableCell>
+                  {entry.pe_change_pct !== null
+                    ? `${entry.pe_change_pct.toFixed(2)}%`
+                    : "--"}
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {trends.map((entry, idx) => (
-                <TableRow key={idx}>
-                  <TableCell>{entry.date}</TableCell>
-                  <TableCell>{entry.day}</TableCell>
-                  <TableCell>${entry.current_price.toFixed(2)}</TableCell>
-                  <TableCell>${entry.past_price.toFixed(2)}</TableCell>
-                  <TableCell>{formatChange(entry.change, entry.change_pct)}</TableCell>
-                  <TableCell>{entry.pe !== null ? entry.pe.toFixed(2) : "--"}</TableCell>
-                  <TableCell>
-                    {entry.pe_change_pct !== null
-                      ? `${entry.pe_change_pct.toFixed(2)}%`
-                      : "--"}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-
+            ))}
+          </TableBody>
+        </Table>
       )}
     </Card>
   );
