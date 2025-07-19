@@ -14,7 +14,7 @@ export default function DmaTable({dmaData}: {dmaData:DmaEntry}) {
         reverseColor = false
     ) => (
         <tr className="text-sm">
-            <td className="py-2 font-medium text-muted-foreground">{label}</td>
+            <td className="py-2 font-medium ">{label}</td>
             {dmaData.map((entry, idx) => {
                 const value = entry[key];
                 const num = typeof value === "string" ? parseFloat(value) : value;
@@ -27,7 +27,7 @@ export default function DmaTable({dmaData}: {dmaData:DmaEntry}) {
                     ? Number(num) > 0
                         ? reverseColor ? "text-red-500" : "text-green-600"
                         : reverseColor ? "text-green-600" : "text-red-500"
-                    : "text-muted";
+                    : "";
                 return (
                     <td key={idx} className={`py-2 text-center ${color}`}>{formatted}</td>
                 );
@@ -36,7 +36,7 @@ export default function DmaTable({dmaData}: {dmaData:DmaEntry}) {
     );
 
     return (
-        <Card className="p-4 my-4">
+        <Card className="p-4 ">
             <h4 className="text-lg font-semibold mb-4">Daily Moving Average (DMA)</h4>
             <div className="overflow-x-auto">
                 <table className="min-w-full text-sm">

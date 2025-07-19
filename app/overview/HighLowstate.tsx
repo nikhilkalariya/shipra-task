@@ -12,7 +12,7 @@ export default function HighLowStats({ statistics }: { statistics: HighLowEntry[
       <h4 className="text-lg font-semibold mb-4">High Low Statistics</h4>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {statistics.map((entry) => (
-          <div key={entry.week} className="border rounded-lg p-4 space-y-1">
+          <div key={entry.week} className="border-r p-4 space-y-1">
             <p className="font-medium text-sm text-muted-foreground">{entry.week} Week</p>
 
             <div className="flex justify-between">

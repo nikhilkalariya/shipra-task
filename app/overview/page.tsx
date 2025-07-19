@@ -5,6 +5,7 @@ import OverviewCards from "./OverviewCards";
 import { fetchFromAPI } from "../lib/api";
 import HighLowStats from "./HighLowstate";
 import DmaTable from "./DmaEntry";
+import InvestmentReturns from "./InvestmentReturn";
 
 interface Profile {
   EV: string;
@@ -72,6 +73,7 @@ export interface HighLowEntry {
   week: string;
 }
 export interface DmaEntry {
+  [x: string]: any;
   date: string;
   day: string;
   dma_price: number;
@@ -107,12 +109,14 @@ export default function OverviewSection() {
   if (!data) return <div>Loading overview...</div>;
 
   return (
-    <div className="px-10 pt-5">
+    <div className=" flex flex-col gap-4 px-10 pt-5">
       <OverviewChart prices={data.closingPrices} />
       <OverviewCards data ={data} />
       <HighLowStats statistics ={statistics}/>
+      <div className="flex gap-2 w-full">
+      <InvestmentReturns dmaData={dmaData}/>
       <DmaTable dmaData={dmaData} />
-      {/* <DmaTable/> */}
+      </div>
     </div>
   );
 }

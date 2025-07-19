@@ -105,11 +105,21 @@ export default function Overviewnav() {
             </div>
           </div>
           <div className='flex items-center gap-2'>
-            <AlignBottomIcon className='bg-white shadow-2xl rounded-full  p-2 w-8 h-8 text-red-600'/>
-            <AlignBottomIcon className='bg-white shadow-2xl rounded-full  p-2 w-8 h-8 text-red-600'/>
-            <AlignTopIcon className='bg-white shadow-2xl rounded-full  p-2 w-8 h-8 text-yellow-500 '/>
-            <AlignBottomIcon className='bg-white shadow-2xl rounded-full  p-2 w-8 h-8 text-red-600 '/>
-            <AlignTopIcon className='bg-white shadow-2xl rounded-full  p-2 w-8 h-8 text-yellow-500'/>
+            <div className='bg-white shadow-2xl rounded-full  p-2'>
+            <AlignBottomIcon className='bg-white shadow-2xl w-4 h-4 text-red-600'/>
+            </div>
+            <div className='bg-white shadow-2xl rounded-full  p-2'>
+            <AlignBottomIcon className='bg-white shadow-2xl w-4 h-4 text-red-600'/>
+            </div>
+            <div className='bg-white shadow-2xl rounded-full  p-2'>
+            <AlignTopIcon className='bg-white shadow-2xl w-4 h-4 text-yellow-500 '/>
+            </div>
+            <div className='bg-white shadow-2xl rounded-full  p-2'>
+            <AlignBottomIcon className='bg-white shadow-2xl w-4 h-4 text-red-600'/>
+            </div>
+            <div className='bg-white shadow-2xl rounded-full  p-2'>
+            <AlignTopIcon className='bg-white shadow-2xl w-4 h-4 text-yellow-500 '/>
+            </div>
             <span>Action</span>
             <DotsVerticalIcon/>
           </div>
@@ -120,33 +130,33 @@ export default function Overviewnav() {
               <div className="text-muted-foreground">Price</div>
              <div className='flex gap-2 items-center'> 
               <div className="font-semibold">${data.latestClose.toFixed(2)}</div>
-              <div className={`text-xs mt-1 px-2 py-0.5 inline-block rounded-full ${data.percentageChange >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+              <div className={`text-xs mt-1 px-2 py-0.5 inline-block rounded-2xl ${data.percentageChange >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
                 {data.change.toFixed(2)} ({data.percentageChange.toFixed(2)}%)
               </div>
              </div> 
             </div>
 
-            <div>
+            <div className='border-r border-[#e2e2e2]'>
               <div className="text-muted-foreground">Opportunity Buy</div>
               <div className="font-semibold">{data.remaining_opportunity.toFixed(2)}%</div>
             </div>
 
-            <div>
+            <div className='border-r border-[#e2e2e2]'>
               <div className="text-muted-foreground">RSI</div>
               <div className={`font-semibold ${data.RSI > 70 ? 'text-red-500' : 'text-green-600'}`}>&gt;{data.RSI}</div>
             </div>
 
-            <div>
+            <div className='border-r border-[#e2e2e2]'>
               <div className="text-muted-foreground">200 Day DMA</div>
               <div className="text-sm text-red-500">6.76% ($123.43)</div>
             </div>
 
-            <div>
+            <div className='border-r border-[#e2e2e2]'>
               <div className="text-muted-foreground">SRT (124 DMA)</div>
               <div className="font-semibold">{data.SRT_124}</div>
             </div>
 
-            <div>
+            <div className='border-r border-[#e2e2e2]'>
               <div className="text-muted-foreground">Earnings</div>
               <div className="font-semibold">{new Date(data.nextEarningsDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
             </div>
