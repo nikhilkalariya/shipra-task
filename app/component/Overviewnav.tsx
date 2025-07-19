@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { fetchFromAPI } from '../lib/api';
+import { fetchFromAPI } from '../utils/api';
 import Image from 'next/image';
 import { AlignBottomIcon, AlignTopIcon, DotsVerticalIcon } from '@radix-ui/react-icons';
 

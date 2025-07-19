@@ -17,7 +17,7 @@ import {
   ArrowDownIcon,
   ArrowUpIcon
 } from "@radix-ui/react-icons";
-import { fetchFromAPI } from "../lib/api";
+import { fetchFromAPI } from "../utils/api";
 
 interface PeakData {
   Close: number;

@@ -19,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { fetchFromAPI } from "../lib/api";
+import { fetchFromAPI } from "../utils/api";
 
 
 interface ClosingPrice {

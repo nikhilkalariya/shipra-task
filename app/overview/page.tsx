@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import OverviewChart from "./OverviewChart";
 import OverviewCards from "./OverviewCards";
-import { fetchFromAPI } from "../lib/api";
+import { fetchFromAPI } from "../utils/api";
 import HighLowStats from "./HighLowstate";
 import DmaTable from "./DmaEntry";
 import InvestmentReturns from "./InvestmentReturn";
