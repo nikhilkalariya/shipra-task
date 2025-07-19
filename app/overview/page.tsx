@@ -105,7 +105,10 @@ export default function OverviewSection() {
       .catch(console.error);
   }, []);
 
-  if (!data) return <div>Loading overview...</div>;
+  if (!data) return
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500" />
+        </div>;
 
   return (
     <div className=" flex flex-col gap-4 px-10 pt-5">
