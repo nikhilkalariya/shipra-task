@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { fetchFromAPI } from '../utils/api';
 import Image from 'next/image';
-import { AlignBottomIcon, AlignTopIcon, DotsVerticalIcon } from '@radix-ui/react-icons';
+import { AlignBottomIcon, AlignTopIcon } from '@radix-ui/react-icons';
+import { EllipsisVertical } from 'lucide-react';
 
 export interface HeatMapData {
   date: string;
@@ -95,14 +96,12 @@ export default function Overviewnav() {
   return (
     <div className="bg-[#0075ff08] px-6 py-4 ">
       {data ? (
-        <div >
-        <div className="flex items-start justify-between w-full">
-          <div className="flex items-center gap-3">
+        <div className='flex flex-col gap-2'>
+        <div className="flex items-start justify-between  w-full">
+          <div className="flex items-center gap-3 py-1">
             <Image className='rounded-full' src={data.logo} alt="logo" width={32} height={32} />
-            <div>
               <div className="text-lg font-semibold">{data.nm} <span className="text-sm text-muted-foreground">{data.ticker}</span></div>
               <div className="text-xs text-muted-foreground">{data.exchange}</div>
-            </div>
           </div>
           <div className='flex items-center gap-2'>
             <div className='bg-white shadow-2xl rounded-full  p-2'>
@@ -121,11 +120,11 @@ export default function Overviewnav() {
             <AlignTopIcon className='bg-white shadow-2xl w-4 h-4 text-yellow-500 '/>
             </div>
             <span>Action</span>
-            <DotsVerticalIcon/>
+            <EllipsisVertical className='stroke-1 h-7 w-7'/>
           </div>
          </div> 
 
-          <div className="grid grid-flow-col gap-2 text-sm pb-5">
+          <div className="grid grid-flow-col gap-2 text-sm">
             <div className='border-r border-[#e2e2e2]'>
               <div className="text-muted-foreground">Price</div>
              <div className='flex gap-2 items-center'> 
@@ -163,7 +162,7 @@ export default function Overviewnav() {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex justify-center items-center h-36">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500" />
         </div>
       )}

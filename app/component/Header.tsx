@@ -18,9 +18,9 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-white border-b  sticky top-0 z-10">
+    <nav className="bg-white sticky top-0 z-10">
       <Overviewnav/>
-      <div className="flex gap-6 px-6 py-4 ">
+      <div className="flex gap-6 px-6 py-2 ">
         {tabs.map((tab) => (
           <Link
             key={tab.href}

@@ -57,13 +57,13 @@ export default function Trend() {
       {filteredData.map((entry, idx) => (
         <Card
           key={idx}
-          className={`p-4 flex  h-[250px] sm:h-[200px] md:h-[150px] flex-col gap-2 text-sm border rounded-md shadow-sm ${
+          className={`p-2 flex h-38 sm:h-38 md:h-40 lg:h-44 xl:h-32 flex-col gap-2 text-sm border rounded-md shadow-sm ${
             color === "green" ? "bg-green-50" : "bg-red-50"
           }`}
         >
-          <div className="text-base font-medium">{entry.date}</div>
+          <div className="text-sm font-semibold">{entry.date}</div>
           <div className="text-muted-foreground">{entry.day}</div>
-          <div className="text-lg font-bold">${entry.current_price.toFixed(2)}</div>
+          <div className="text-sm font-semibold">${entry.current_price.toFixed(2)}</div>
           {formatChange(entry.change, entry.change_pct)}
         </Card>
       ))}
@@ -71,9 +71,9 @@ export default function Trend() {
   );
 
   return (
-    <Card className="p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Trends</h2>
+    <Card className="p-4 w-full lg:w-2/4">
+      <div className="flex justify-between items-center">
+        <h2 className="text-base font-semibold">Trends</h2>
         <div className="flex gap-2">
           <Button
             variant="ghost"
@@ -103,22 +103,20 @@ export default function Trend() {
         </div>
       ) : (
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-[#f9f9f9]">
             <TableRow>
               <TableHead>Date</TableHead>
-              <TableHead>Time Ago</TableHead>
               <TableHead>Current Price</TableHead>
               <TableHead>Past Price</TableHead>
               <TableHead>Change</TableHead>
-              <TableHead>PE Ratio</TableHead>
-              <TableHead>PE Change %</TableHead>
+              <TableHead>PE</TableHead>
+              <TableHead>PE % Change</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {trends.map((entry, idx) => (
               <TableRow key={idx}>
                 <TableCell>{entry.date}</TableCell>
-                <TableCell>{entry.day}</TableCell>
                 <TableCell>${entry.current_price.toFixed(2)}</TableCell>
                 <TableCell>${entry.past_price.toFixed(2)}</TableCell>
                 <TableCell>{formatChange(entry.change, entry.change_pct)}</TableCell>

@@ -70,9 +70,9 @@ export default function Peak() {
 
   return (
 
-    <Card className="p-2 ">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Peak</h2>
+    <Card className="p-4 w-full lg:w-2/4">
+      <div className="flex justify-between items-center">
+        <h2 className="text-base font-semibold">Peak Data</h2>
         <div className="flex gap-2">
           <Button
             variant="ghost"
@@ -96,12 +96,16 @@ export default function Peak() {
         </div>
       ) :
         viewMode === "card" ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
             {npeakdata.map((entry, idx) => (
-              <Card key={idx} className="p-4 flex flex-col gap-2 text-sm border rounded-md shadow-sm">
-                <div className="text-base font-medium">{formatDate(entry.Date)}</div>
+              <Card key={idx} className="p-2 flex flex-col h-38 sm:h-38 md:h-40 lg:h-44 xl:h-32 gap-2 text-sm border rounded-md shadow-sm">
+                <div className="flex md:flex-col lg:flex-col xl:flex-row xl:justify-between">
+                <div className="">
+                <div className="text-sm font-semibold">{formatDate(entry.Date)}</div>
                 <div className="text-muted-foreground">{entry.timeDiff}</div>
-                <div className="text-lg font-bold">${entry.Close}</div>
+                </div>
+                <div className="text-sm font-semibold">${entry.Close}</div>
+                </div>
                 {formatChange(entry.change, entry.percentageChange)}
                 {formatChange(entry.reverseChange, entry.reversePercentageChange)}
               </Card>
@@ -110,7 +114,7 @@ export default function Peak() {
         ) : (
           <div className="overflow-x-auto">
             <Table>
-              <TableHeader>
+              <TableHeader className="bg-[#f9f9f9]">
                 <TableRow>
                   <TableHead>PEAK NO</TableHead>
                   <TableHead>DATE</TableHead>
@@ -128,7 +132,7 @@ export default function Peak() {
                     <TableCell>
                       <div className="flex flex-col">
                         <span>{entry.timeDiff}</span>
-                        <span>{entry.time_diff_str}</span>
+                        <span className="text-gray-400">{entry.time_diff_str}</span>
                       </div>
                     </TableCell>
                     <TableCell>${entry.Close}</TableCell>

@@ -101,7 +101,7 @@ useEffect(() => {
   const prices = filterData(allData, selectedRange);
 
   return (
-    <Card className="text-white  border ">
+    <Card className="text-white border ">
       <div className="mx-6 flex items-center gap-1 ">
       {/* Tabs */}
       <div className="flex gap-2 bg-white p-1 rounded-lg shadow-sm border text-sm">
@@ -111,8 +111,8 @@ useEffect(() => {
             onClick={() => setActive(tab)}
             className={`whitespace-nowrap ${
               tab === active
-                ? "text-blue-600 font-medium  bg-blue-100 p-1 rounded-lg"
-                : "text-gray-500 hover:text-black"
+                ? "text-blue-600 font-semibold bg-blue-100 p-1 rounded-lg"
+                : "text-gray-500 p-1 hover:text-black"
             }`}
           >
             {tab}
@@ -139,7 +139,7 @@ useEffect(() => {
             onClick={() => setSelectedRange(range)}
             className={`text-xs ${
               selectedRange === range
-                ? "bg-white p-2 rounded-lg text-blue-500 "
+                ? "bg-white rounded-lg text-blue-500 "
                 : " text-gray-400 "
             }`}
           >

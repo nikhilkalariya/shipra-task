@@ -8,7 +8,7 @@ export default function PerformancePage() {
  
 
   return (
-    <div className="p-6 ">
+    <div className="p-4">
       <div className="flex flex-col lg:flex-row gap-3">
         <Trend/>
         <Peak/>
