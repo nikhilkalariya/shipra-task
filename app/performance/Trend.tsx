@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import HeaderWithViewToggle from "../component/HeaderWithViewToggle";
 
 interface TrendEntry {
   change: number;
@@ -37,8 +38,8 @@ export default function Trend() {
   useEffect(() => {
     setLoading(true)
     fetchFromAPI<{ message: string; result: TrendEntry[] }>("/performance")
-    .then((res) => setTrends(res.result))
-    .finally(() => setLoading(false))    
+      .then((res) => setTrends(res.result))
+      .finally(() => setLoading(false))
   }, []);
 
   const formatChange = (value: number, pct: number) => {
@@ -57,9 +58,8 @@ export default function Trend() {
       {filteredData.map((entry, idx) => (
         <Card
           key={idx}
-          className={`p-2 flex h-38 sm:h-38 md:h-40 lg:h-44 xl:h-32 flex-col gap-2 text-sm border rounded-md shadow-sm ${
-            color === "green" ? "bg-green-50" : "bg-red-50"
-          }`}
+          className={`p-2 flex h-38 sm:h-38 md:h-40 lg:h-44 xl:h-32 flex-col gap-2 text-sm border rounded-md shadow-sm ${color === "green" ? "bg-green-50" : "bg-red-50"
+            }`}
         >
           <div className="text-sm font-semibold">{entry.date}</div>
           <div className="text-muted-foreground">{entry.day}</div>
@@ -71,66 +71,54 @@ export default function Trend() {
   );
 
   return (
-    <Card className="p-4 w-full lg:w-2/4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-base font-semibold">Trends</h2>
-        <div className="flex gap-2">
-          <Button
-            variant="ghost"
-            onClick={() => setViewMode("table")}
-            className={viewMode === "table" ? "bg-blue-100 text-blue-600" : ""}
-          >
-            <ListBulletIcon className="h-5 w-5" />
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => setViewMode("card")}
-            className={viewMode === "card" ? "bg-blue-100 text-blue-600" : ""}
-          >
-            <ViewGridIcon className="h-5 w-5" />
-          </Button>
-        </div>
-      </div>
-
-    {loading ? (
+    <div className=" w-full lg:w-2/4">
+      {loading ? (
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500" />
         </div>
-      ) :     viewMode === "card" ? (
-        <div className="grid grid-cols-2 gap-2">
-          {renderCards(trends.filter((t) => t.change_pct >= 0), "green")}
-          {renderCards(trends.filter((t) => t.change_pct < 0), "red")}
-        </div>
+      ) : viewMode === "card" ? (
+        <>
+          <Card className="p-4">
+            <HeaderWithViewToggle title="Trends" viewMode={viewMode} setViewMode={setViewMode} />
+            <div className="grid grid-cols-2 gap-2">
+              {renderCards(trends.filter((t) => t.change_pct >= 0), "green")}
+              {renderCards(trends.filter((t) => t.change_pct < 0), "red")}
+            </div>
+          </Card>
+        </>
       ) : (
-        <Table>
-          <TableHeader className="bg-[#f9f9f9]">
-            <TableRow>
-              <TableHead>Date</TableHead>
-              <TableHead>Current Price</TableHead>
-              <TableHead>Past Price</TableHead>
-              <TableHead>Change</TableHead>
-              <TableHead>PE</TableHead>
-              <TableHead>PE % Change</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {trends.map((entry, idx) => (
-              <TableRow key={idx}>
-                <TableCell>{entry.date}</TableCell>
-                <TableCell>${entry.current_price.toFixed(2)}</TableCell>
-                <TableCell>${entry.past_price.toFixed(2)}</TableCell>
-                <TableCell>{formatChange(entry.change, entry.change_pct)}</TableCell>
-                <TableCell>{entry.pe !== null ? entry.pe.toFixed(2) : "--"}</TableCell>
-                <TableCell>
-                  {entry.pe_change_pct !== null
-                    ? `${entry.pe_change_pct.toFixed(2)}%`
-                    : "--"}
-                </TableCell>
+        <>
+          <HeaderWithViewToggle title="Trends" viewMode={viewMode} setViewMode={setViewMode} />
+          <Table>
+            <TableHeader className="bg-[#f9f9f9]">
+              <TableRow>
+                <TableHead>Date</TableHead>
+                <TableHead>Current Price</TableHead>
+                <TableHead>Past Price</TableHead>
+                <TableHead>Change</TableHead>
+                <TableHead>PE</TableHead>
+                <TableHead>PE % Change</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {trends.map((entry, idx) => (
+                <TableRow key={idx}>
+                  <TableCell>{entry.date}</TableCell>
+                  <TableCell>${entry.current_price.toFixed(2)}</TableCell>
+                  <TableCell>${entry.past_price.toFixed(2)}</TableCell>
+                  <TableCell>{formatChange(entry.change, entry.change_pct)}</TableCell>
+                  <TableCell>{entry.pe !== null ? entry.pe.toFixed(2) : "--"}</TableCell>
+                  <TableCell>
+                    {entry.pe_change_pct !== null
+                      ? `${entry.pe_change_pct.toFixed(2)}%`
+                      : "--"}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </>
       )}
-    </Card>
+    </div>
   );
 }
