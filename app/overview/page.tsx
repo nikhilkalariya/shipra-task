@@ -111,7 +111,7 @@ export default function OverviewSection() {
         </div>;
 
   return (
-    <div className=" flex flex-col gap-4 p-5">
+    <div className=" flex flex-col gap-4 container mx-auto p-4">
       <OverviewChart/>
       <OverviewCards data ={data} />
       <HighLowStats statistics ={statistics}/>

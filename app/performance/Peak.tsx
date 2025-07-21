@@ -79,7 +79,7 @@ export default function Peak() {
       ) :
         viewMode === "card" ? (
           <>
-         <Card className="p-4"> 
+         <Card className="p-4 gap-4"> 
           <HeaderWithViewToggle title="Peak Data" viewMode={viewMode} setViewMode={setViewMode} />
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
               {npeakdata.map((entry, idx) => (

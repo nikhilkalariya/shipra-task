@@ -78,7 +78,7 @@ export default function Trend() {
         </div>
       ) : viewMode === "card" ? (
         <>
-          <Card className="p-4">
+          <Card className="p-4 gap-4">
             <HeaderWithViewToggle title="Trends" viewMode={viewMode} setViewMode={setViewMode} />
             <div className="grid grid-cols-2 gap-2">
               {renderCards(trends.filter((t) => t.change_pct >= 0), "green")}
@@ -93,7 +93,7 @@ export default function Trend() {
             <TableHeader className="bg-[#f9f9f9]">
               <TableRow>
                 <TableHead>Date</TableHead>
-                <TableHead>Current Price</TableHead>
+                <TableHead>Price</TableHead>
                 <TableHead>Past Price</TableHead>
                 <TableHead>Change</TableHead>
                 <TableHead>PE</TableHead>
