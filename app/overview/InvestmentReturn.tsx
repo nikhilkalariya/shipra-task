@@ -48,12 +48,12 @@ export default function InvestmentReturns({dmaData}: InvestmentReturnsProps) {
   return (
     <Card className="border rounded-lg p-4 bg-white w-2/3">
       <h3 className="font-semibold text-sm">Investment Returns</h3>
-      <div className="grid grid-cols-1 lg:grid-cols-2  divide-x">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:divide-x">
         <div className="pr-2">
           <h4 className="text-xs font-semibold mb-2 text-gray-700">Long Term</h4>
           <div className="space-y-2">{renderBars(longTerm)}</div>
         </div>
-        <div className="pl-2">
+        <div className="">
           <h4 className="text-xs font-semibold mb-2 text-gray-700">Short Term</h4>
           <div className="space-y-2">{renderBars(shortTerm)}</div>
         </div>

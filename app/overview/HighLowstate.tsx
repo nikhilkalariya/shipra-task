@@ -9,7 +9,7 @@ export default function HighLowStats({ statistics }: { statistics: HighLowEntry[
 
   return (
     <Card className="p-4">
-      <h4 className="text-lg font-semibold">High Low Statistics</h4>
+      <h4 className="text-sm font-semibold">High Low Statistics</h4>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {statistics.map((entry) => (
           <div key={entry.week} className="border-r p-4 space-y-1">

@@ -17,7 +17,7 @@ export default function DmaTable({dmaData}: DmaTableProps) {
         colorize = false,
         reverseColor = false
     ) => (
-        <tr className="text-sm">
+        <tr className="text-sm border-b border-gray-200">
             <td className="py-2 font-medium ">{label}</td>
             {dmaData.map((entry:DmaEntry, idx: Key) => {
                 const value = entry[key];
@@ -40,8 +40,8 @@ export default function DmaTable({dmaData}: DmaTableProps) {
     );
 
     return (
-        <Card className="p-4 ">
-            <h4 className="text-lg font-semibold mb-4">Daily Moving Average (DMA)</h4>
+        <Card className="p-4">
+            <h4 className="text-sm font-semibold">Daily Moving Average (DMA)</h4>
             <div className="overflow-x-auto">
                 <table className="min-w-full text-sm">
                     <thead>
