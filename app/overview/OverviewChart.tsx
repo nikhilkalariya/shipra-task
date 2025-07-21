@@ -139,7 +139,7 @@ useEffect(() => {
             onClick={() => setSelectedRange(range)}
             className={`text-xs ${
               selectedRange === range
-                ? "bg-white rounded-lg text-blue-500 "
+                ? "bg-white rounded-lg p-2 font-semibold text-blue-500 "
                 : " text-gray-400 "
             }`}
           >
